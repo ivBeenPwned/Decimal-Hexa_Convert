@@ -5,3 +5,4 @@ python3 -c 'print(0x5db3^0x1116^0x5dcd21f4)'
 
 #Operação manual e automática de conversão decimal para hexadecimal - BookStore Tryhackme:
 echo "Digite um valor:" && read v && clear && for z in $(for i in {0..5}; do echo "$v" && v=$(( v / 16 )); if [[ $v == 0 ]]; then break; fi; done); do bc <<< "$z%16"; done | tr "\n" "," | sed 's/.$//'
+echo "Digite o valor" && read v && clear && for z in $(for ((i=0; ;i++)); do sleep 0.5 && echo "$v" && v=$(( v/16 )); if [[ $v == 0 ]]; then break; fi; done); do bc <<< "$z%16"; done
