@@ -1,0 +1,7 @@
+#Operação manual e automática de conversão hexadecimal para decimal - BookStore Tryhackme:
+bc <<< $(( $((echo "5*16^3+13*16^2+11*16^1+3*16^0" | bc && echo "1*16^3+1*16^2+1*16^1+6*16^0" | bc && echo "5*16^7+13*16^6+12*16^5+13*16^4+2*16^3+1*16^2+15*16^1+4*16^0" | bc) | tr "\n" "^" | sed 's/.$//') ))
+printf $((0x5db3^0x1116^0x5dcd21f4)
+python3 -c 'print(0x5db3^0x1116^0x5dcd21f4)'
+
+#Operação manual e automática de conversão decimal para hexadecimal - BookStore Tryhackme:
+echo "Digite um valor:" && read v && clear && for z in $(for i in {0..5}; do echo "$v" && v=$(( v / 16 )); if [[ $v == 0 ]]; then break; fi; done); do bc <<< "$z%16"; done | tr "\n" "," | sed 's/.$//'
