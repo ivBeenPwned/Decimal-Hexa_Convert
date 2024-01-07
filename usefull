@@ -3,6 +3,34 @@ bc <<< $(( $((echo "5*16^3+13*16^2+11*16^1+3*16^0" | bc && echo "1*16^3+1*16^2+1
 printf $((0x5db3^0x1116^0x5dcd21f4)
 python3 -c 'print(0x5db3^0x1116^0x5dcd21f4)'
 
-#Operação manual e automática de conversão decimal para hexadecimal - BookStore Tryhackme:
+------------------------------------------------------------------------------------------
+#Operação de conversão decimal para hexadecimal - BookStore Tryhackme:
 echo "Digite um valor:" && read v && clear && for z in $(for i in {0..5}; do echo "$v" && v=$(( v / 16 )); if [[ $v == 0 ]]; then break; fi; done); do bc <<< "$z%16"; done | tr "\n" "," | sed 's/.$//'
 echo "Digite o valor" && read v && clear && for z in $(for ((i=0; ;i++)); do sleep 0.5 && echo "$v" && v=$(( v/16 )); if [[ $v == 0 ]]; then break; fi; done); do bc <<< "$z%16"; done
+
+#<Script>
+#!/bin/bash
+
+Red='\033[0;31m'
+Green='\033[0;32m'
+Yellow='\033[1;33m'
+
+printf "${Yellow}Digite um valor: "
+read v
+
+result=$(
+	for z in $(
+		for ((i=0; ;i++)); do
+			sleep 0.2
+			echo $v
+			v=$(( v / 16 ))
+			if [[ $v == 0 ]]; then
+				break
+			fi
+		done); do
+		bc <<< "$z%16"
+	done | tr "\n" " " | sed -e "s|10|a|g" -e "s|11|b|g" -e "s|12|c|g" -e "s|13|d|g" -e "s|14|e|g" -e "s|15|f|g" | tr -d " " | rev 
+	) 
+
+printf "${Green}Hex Value: ${Red}0x$result"
+#</Script>
