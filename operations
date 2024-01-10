@@ -17,7 +17,7 @@ count=0
 
 n=$(
 	for z in $(
-		for i in $(echo $v | sed 's/./& /g' | tr -d "0x"); do
+		for i in $(echo $v | sed 's/./& /g' | sed 's/0x//g'); do
 			echo $i
 		done
 		) 
@@ -28,7 +28,7 @@ n=$(
 )
 
 pot=$n
-final=$(for i in $(echo $v | sed 's/./& /g' | tr -d "0x" | sed -e "s|a|10|g" -e "s|b|11|g" -e "s|c|12|g" -e "s|d|13|g" -e "s|e|14|g" -e "s|f|15|g"); do ((pot--)) && echo "$i*16^$pot+" | tr -d "\n"; done | sed 's/.$//')
+final=$(for i in $(echo $v | sed 's/./& /g' | sed 's/0x//g' | sed -e "s|a|10|g" -e "s|b|11|g" -e "s|c|12|g" -e "s|d|13|g" -e "s|e|14|g" -e "s|f|15|g"); do ((pot--)) && echo "$i*16^$pot+" | tr -d "\n"; done | sed 's/.$//')
 
 result=$(echo $final | bc)
 
