@@ -5,6 +5,7 @@ python3 -c 'print(0x5db3^0x1116^0x5dcd21f4)'
 
 #<Code> - Hex_To_Dec.sh
 #!/bin/bash
+#Hexadecimal to Decimal conversion
 
 Red='\033[0;31m'
 Green='\033[0;32m'
@@ -12,6 +13,14 @@ Yellow='\033[1;33m'
 
 printf "${Yellow}Digite um valor: "
 read v
+
+if [[ ${#v} -gt 15 ]];then
+	echo "Esperado no total 15 caracteres"
+	echo "Caracteres totalizados: ${#v}"
+elif [[ $v =~ [^a-fA-Fx0-9] ]]; then
+	echo "Somente caracteres hexadecimais"
+	exit
+fi
 
 count=0
 
@@ -43,6 +52,7 @@ echo "Digite o valor" && read v && clear && for z in $(for ((i=0; ;i++)); do sle
 
 #<Code> - Dec_To_Hex.sh
 #!/bin/bash
+#Decimal to Hexadecimal conversion
 
 Red='\033[0;31m'
 Green='\033[0;32m'
@@ -50,6 +60,15 @@ Yellow='\033[1;33m'
 
 printf "${Yellow}Digite um valor: "
 read v
+
+if [[ ${#v} -ge 20 ]]; then
+	echo "Espera-se menos de 20 caracteres"
+	echo "Caracteres totalizados: ${#v}"
+	exit
+elif [[ $v =~ [^0-9] ]]; then
+	echo "Somente números"
+	exit
+fi
 
 result=$(
 	for z in $(
